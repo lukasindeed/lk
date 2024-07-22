@@ -1,0 +1,31 @@
+name: Markdown Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install write-good
+      run: npm install -g write-good
+
+    - name: Run write-good on Markdown files
+      run: |
+        for file in $(find . -name "*.md"); do
+          write-good "$file"
+        done
