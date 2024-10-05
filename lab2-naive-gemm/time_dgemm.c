@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
   double gflops = 4.0 * m * n * k ;
 
   gflops = gflops / duration * 1.0e-9;
+  printf("cblas_gflops:%lf\n",gflops);
 
   gettimeofday(&start, NULL);
   dgemm(m, n, k, alpha, beta, A, B, C_naive);
@@ -84,8 +85,11 @@ int main(int argc, char *argv[])
 
   // 转成成秒数
   duration = (double)(finish.tv_sec - start.tv_sec) + (double)(finish.tv_usec - start.tv_usec) / 1.0e6;
+  double gflops1 = 4.0 * m * n * k ;
+  gflops1 = gflops1 / duration * 1.0e-9;
 
-  printf("naive_duration:%lf",duration);
+  printf("naive_duration:%lf\n",duration);
+  printf("naive_gflops:%lf\n",gflops1);
   
   int correct = 1;
   for (i=0;i < sizeofc;i++){
